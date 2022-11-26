@@ -1,12 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 const HomeScreen = ({ navigation, route }) => {
+  const [count, setCount] = useState(0);
   //   useEffect(() => {
   // if(route.params?.post) {
   // sent the post to the server
   // }
   //   }, [route.params?.post]);
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <>
+          <Button onPress={() => setCount((c) => c + 1)} title="Update count" />
+          <Button
+            title="Info"
+            color="fff"
+            onPress={() => alert("This is a button!")}
+          />
+        </>
+      ),
+    });
+  }, [navigation]);
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
@@ -38,6 +53,7 @@ const HomeScreen = ({ navigation, route }) => {
         }
       />
       <Text style={{ margin: 15 }}>Post: {route.params?.post}</Text>
+      <Text style={{ margin: 15 }}>Count: {count}</Text>
     </View>
   );
 };
